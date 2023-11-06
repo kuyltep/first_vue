@@ -12,6 +12,11 @@
     </my-dialog>
     <post-list v-if="!isPostsLoading" @remove="removeItem" :posts="sortedAndSearchedPosts"></post-list>
     <div v-else>Loading...</div>
+    <div class="page__wrapper">
+      <div class="page" :class="{ 'current-page': page === pageNumber }" v-for="pageNumber in totalPages"
+        :key="pageNumber" @click="changePage(pageNumber)">
+        {{ pageNumber }}</div>
+    </div>
   </div>
 </template>
 
@@ -38,6 +43,9 @@ export default {
       modificatorTrain: "",
       isPostsLoading: false,
       selectedSort: '',
+      page: 1,
+      limit: 10,
+      totalPages: 0,
       sortOptions: [
         { value: 'title', name: 'For name' },
         { value: 'body', name: 'For body' }
@@ -60,7 +68,13 @@ export default {
     async fetchPosts() {
       this.isPostsLoading = true;
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts`, {
+          params: {
+            _page: this.page,
+            _limit: this.limit,
+          }
+        })
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = response.data
       } catch (e) {
         alert('Error')
@@ -68,6 +82,9 @@ export default {
         this.isPostsLoading = false
       }
 
+    },
+    changePage(pageNumber) {
+      this.page = pageNumber;
     }
   },
   mounted() {
@@ -87,6 +104,9 @@ export default {
     //     return post1[newValue]?.localeCompare(post2[newValue])
     //   })
     // }
+    page() {
+      this.fetchPosts();
+    }
   }
 
 };
@@ -107,5 +127,19 @@ export default {
 
 .app {
   padding: 20px;
+}
+
+.page__wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+
+.page {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.current-page {
+  border: 2px solid teal;
 }
 </style>
