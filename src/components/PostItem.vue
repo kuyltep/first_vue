@@ -4,6 +4,7 @@
       <div><strong>ID: {{ post.id }}</strong></div>
       <div><strong>Title:</strong> {{ post.title }}</div>
       <div><strong>Description:</strong>{{ post.body }}</div>
+      <div><strong>Likes:</strong>{{ $store.state.likes }}</div>
     </div>
     <div class="post__btns">
       <my-button @click="$router.push(`/post-page/${post.id}`)">Open</my-button>

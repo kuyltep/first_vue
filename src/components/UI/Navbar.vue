@@ -8,6 +8,9 @@
       <my-button @click="$router.push('/post-page')" style="margin-left: 20px;">
         Post List
       </my-button>
+      <my-button @click="$router.push('/store')" style="margin-left: 20px;">
+        Post List with store
+      </my-button>
     </div>
   </div>
 </template>

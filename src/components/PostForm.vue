@@ -1,13 +1,9 @@
 <template>
   <form action="" class="form" @submit.prevent>
     <h4>Create post</h4>
-    <my-input v-model="post.title" placeholder="Title" />
+    <my-input v-focus v-model="post.title" placeholder="Title" />
     <my-input v-model="post.body" placeholder="Description" />
-    <my-button
-      style="align-items: flex-end; margin-top: 10px"
-      @click="createPost"
-      >Create</my-button
-    >
+    <my-button style="align-items: flex-end; margin-top: 10px" @click="createPost">Create</my-button>
   </form>
 </template>
 
