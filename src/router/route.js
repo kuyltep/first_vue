@@ -21,6 +21,10 @@ const routes = [
     path: "/store",
     component: () => import("@/components/pages/PostPageWithStore"),
   },
+  {
+    path: "/composition",
+    component: () => import("@/components/pages/PostPageCompositionAPI"),
+  },
 ];
 
 const router = createRouter({
